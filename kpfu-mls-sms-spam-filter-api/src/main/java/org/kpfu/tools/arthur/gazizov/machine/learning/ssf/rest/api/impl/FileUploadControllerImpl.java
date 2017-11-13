@@ -31,7 +31,7 @@ public class FileUploadControllerImpl implements FileUploadController {
   @Autowired
   private FileUploaderProcessor fileUploaderProcessor;
 
-  @ApiOperation(value = "Save Dataset", notes = "", response = DataSetDto.class)
+  @ApiOperation(value = "Upload file", notes = "", response = DataSetDto.class)
   @ApiResponses(value = {
           @ApiResponse(code = 201, message = "", response = DataSetDto.class),
           @ApiResponse(code = 400, message = "Bad request", response = ErrorDto.class),

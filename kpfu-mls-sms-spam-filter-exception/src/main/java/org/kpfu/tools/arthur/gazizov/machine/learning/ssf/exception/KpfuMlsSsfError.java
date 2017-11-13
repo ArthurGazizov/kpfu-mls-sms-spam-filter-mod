@@ -19,6 +19,12 @@ public enum KpfuMlsSsfError {
 
   IO_EXCEPTION(1_010_001, HttpStatus.BAD_REQUEST, "Can't read file"),
 
+  STAT_NOT_FOUND(1_20_001, HttpStatus.BAD_REQUEST, "Stat not found"),
+
+  UNRECOGNIZED_WORD(1_30_001, HttpStatus.BAD_REQUEST, "unrecognized word"),
+
+  UNRECOGNIZED_SMS_TAG(1_30_002, HttpStatus.BAD_REQUEST, "unrecognized sms tag"),
+
   UNSUPPORTED_OPERATION(1_900_001, HttpStatus.BAD_REQUEST, "Unsupported operation");
 
   private int code;
