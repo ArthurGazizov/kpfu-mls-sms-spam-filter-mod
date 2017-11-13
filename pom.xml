@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>kpfu-mls-sms-spam-filter-mod</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+
+    <parent>
+        <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+        <artifactId>kpfu-tools-arthur-gazizov-machine-learning-parent-pom</artifactId>
+        <version>0.0.2-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>kpfu-mls-sms-spam-filter-db-patcher</module>
+        <module>kpfu-mls-sms-spam-filter-api</module>
+        <module>kpfu-mls-sms-spam-filter-server</module>
+        <module>kpfu-mls-sms-spam-filter-dto</module>
+        <module>kpfu-mls-sms-spam-filter-model</module>
+        <module>kpfu-mls-sms-spam-filter-client</module>
+        <module>kpfu-mls-sms-spam-filter-converter</module>
+        <module>kpfu-mls-sms-spam-filter-validator</module>
+        <module>kpfu-mls-sms-spam-filter-util</module>
+        <module>kpfu-mls-sms-spam-filter-exception</module>
+        <module>kpfu-mls-sms-spam-filter-web-utils</module>
+        <module>kpfu-mls-sms-spam-filter-dao</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-db-patcher</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-dto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-converter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-validator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-web-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-exception</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+                <artifactId>kpfu-mls-sms-spam-filter-dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,87 @@
+### Maven template
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+#ignore target dir
+target*/
+
+!/cnr-core/core-adc/src/main/java/com/cinarra/core/adc/bean/dto/ui/target
+
+!/cnr-api/adc-web-model/src/main/java/com/cinarra/api/adc/web/model/target
+!/cnr-api/adc-server-api/src/main/java/com/cinarra/api/adc/server/exception/target
+!/cnr-api/adc-web-api/src/main/java/com/cinarra/api/adc/web/mapping/target
+!/cnr-api/cnr-cws-api-adc/src/main/java/com/cinarra/api/adc/web/mapping/target
+
+.DS_Store
+
+#*.orig
+#
+# Eclipse project files
+#
+.classpath
+.project
+.settings*/
+.springBeans
+MANIFEST.MF
+bin*/
+war*/
+
+#
+# IntelliJ IDEA project files
+#
+.idea*/
+*.ipr
+*.iml
+*.iws
+*.ids
+*.deb
+classes*/
+out*/
+gen-external-apklibs*/
+
+#ignore NetBeans project files
+nb-configuration.xml
+profiles.xml
+catalog.xml
+nbactions.xml
+
+#ignore some temporary files
+*.vpp~*
+
+#ignore thumbnails created by windows
+Thumbs.db
+
+#ignore some log files
+script/*.log
+importStations/*.log
+
+*.backup
+atlassian-ide-plugin.xml
+
+
+#ignore Xcode system files
+*.xcuserstate
+
+@ignore reviewboardrc
+*.reviewboardrc
+
+#py
+*.pyc
+cnr-web/web-app/web-app-adc/src/main/resources/com/cinarra/web/app/adc/build.properties
+
+#reviewboardrc
+*.reviewboardrc
+
+#Jenkins private maven repo
+.repository
+
+# Temporary
+version
+version.properties

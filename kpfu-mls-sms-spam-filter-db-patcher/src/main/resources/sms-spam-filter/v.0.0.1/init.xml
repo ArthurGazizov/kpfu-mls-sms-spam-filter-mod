@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01" author="Arthur Gazizov">
+        <comment>Creating data schema</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE SCHEMA IF NOT EXISTS kpfu_sms_filter_data;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="02" author="Arthur Gazizov">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT count (0) as result
+                FROM pg_class c
+                JOIN pg_namespace n ON n.oid = c.relnamespace
+                WHERE c.relname = 'sms_filter_master_seq'
+                AND n.nspname = 'kpfu_sms_filter_data';
+            </sqlCheck>
+        </preConditions>
+        <comment>Creating sequence for kpfu_sms_filter_data schema</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE SEQUENCE kpfu_sms_filter_data.sms_filter_master_seq
+            MINVALUE 1000000000000001
+            MAXVALUE 1999999999999999
+            START 1000000000000001;
+            ]]>
+        </sql>
+        <rollback>
+            DROP SEQUENCE kpfu_sms_filter_data.sms_filter_master_seq;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="03" author="Arthur Gazizov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="kpfu_sms_filter_data" tableName="data_set"/>
+            </not>
+        </preConditions>
+        <comment>Creating data set table</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE TABLE kpfu_sms_filter_data.data_set
+            ( data_set_id BIGINT NOT NULL DEFAULT nextval('kpfu_sms_filter_data.sms_filter_master_seq'::regclass)
+            , data_set_name text NOT NULL
+            , data_set_created_ts timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+            , data_set_updated_ts timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+            , data_set_deleted_ts timestamp without time zone
+            , data_set_is_deleted boolean NOT NULL DEFAULT false
+            , CONSTRAINT data_set_id_pkey PRIMARY KEY (data_set_id)
+            , CONSTRAINT data_set_id_check CHECK (data_set_id >= 1000000000000001::bigint AND data_set_id <=1999999999999999::bigint)
+            );
+            ]]>
+        </sql>
+        <rollback>
+            DROP TABLE kpfu_sms_filter_data.data_set;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04" author="Arthur Gazizov">
+        <comment>CA-9: Creating data set name index</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE INDEX data_set_name_idx ON kpfu_sms_filter_data.data_set (data_set_name);
+            ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>
