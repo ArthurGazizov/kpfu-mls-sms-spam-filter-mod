@@ -7,4 +7,6 @@
 
     <include file="init.xml" relativeToChangelogFile="true"/>
     <include file="2017-11-13_add_unique_dataset_name_constraint.xml" relativeToChangelogFile="true"/>
+    <include file="2017-11-13_sms_tag.xml" relativeToChangelogFile="true"/>
+    <include file="2017-11-13_data_set_element.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

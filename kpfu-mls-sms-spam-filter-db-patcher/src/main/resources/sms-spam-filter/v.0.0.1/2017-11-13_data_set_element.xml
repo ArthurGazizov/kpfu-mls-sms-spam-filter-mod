@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01" author="Arthur Gazizov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="kpfu_sms_filter_data" tableName="data_set_element"/>
+            </not>
+        </preConditions>
+        <comment>Creating data set element table</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+                CREATE TABLE kpfu_sms_filter_data.data_set_element
+                (
+                  data_set_element_id         BIGINT                      NOT NULL DEFAULT nextval(
+                      'kpfu_sms_filter_data.sms_filter_master_seq' :: REGCLASS)
+                  ,
+                  data_set_id                 BIGINT                      NOT NULL REFERENCES kpfu_sms_filter_data.data_set (data_set_id)
+                  ,
+                  sms_tag_id                 BIGINT                      NOT NULL REFERENCES kpfu_sms_filter_data.sms_tag (sms_tag_id)
+                  ,
+                  data_set_element_sms   TEXT                      NOT NULL
+                  ,
+                  data_set_element_created_ts TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                  ,
+                  data_set_element_updated_ts TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                  ,
+                  data_set_element_deleted_ts TIMESTAMP WITHOUT TIME ZONE
+                  ,
+                  data_set_element_is_deleted BOOLEAN                     NOT NULL DEFAULT FALSE
+                  ,
+                  CONSTRAINT data_set_element_id_pkey PRIMARY KEY (data_set_element_id)
+                  ,
+                  CONSTRAINT data_set_element_id_check CHECK (data_set_id >= 1000000000000001 :: BIGINT AND
+                                                              data_set_id <= 1999999999999999 :: BIGINT)
+                );
+            ]]>
+        </sql>
+        <rollback>
+            DROP TABLE kpfu_sms_filter_data.data_set_element;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="02" author="Arthur Gazizov">
+        <comment>Creating index</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE INDEX data_set_id_idx ON kpfu_sms_filter_data.data_set_element (data_set_id);
+            CREATE INDEX sms_tag_id_idx ON kpfu_sms_filter_data.data_set_element (sms_tag_id);
+            ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>

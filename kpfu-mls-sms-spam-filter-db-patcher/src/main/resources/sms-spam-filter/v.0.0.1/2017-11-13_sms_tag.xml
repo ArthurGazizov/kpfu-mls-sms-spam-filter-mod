@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01" author="Arthur Gazizov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="kpfu_sms_filter_data" tableName="sms_tag"/>
+            </not>
+        </preConditions>
+        <comment>Creating data set table</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+                CREATE TABLE kpfu_sms_filter_data.sms_tag
+                (
+                  sms_tag_id         BIGINT                      NOT NULL DEFAULT nextval(
+                      'kpfu_sms_filter_data.sms_filter_master_seq' :: REGCLASS)
+                  ,
+                  sms_tag_name       TEXT                        NOT NULL UNIQUE
+                  ,
+                  sms_tag_code       TEXT                        NOT NULL UNIQUE
+                  ,
+                  sms_tag_created_ts TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                  ,
+                  sms_tag_updated_ts TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                  ,
+                  sms_tag_deleted_ts TIMESTAMP WITHOUT TIME ZONE
+                  ,
+                  sms_tag_is_deleted BOOLEAN                     NOT NULL DEFAULT FALSE
+                  ,
+                  CONSTRAINT sms_tag_id_pkey PRIMARY KEY (sms_tag_id)
+                  ,
+                  CONSTRAINT sms_tag_id_check CHECK (sms_tag_id >= 1000000000000001 :: BIGINT AND
+                                                     sms_tag_id <= 1999999999999999 :: BIGINT)
+                );
+            ]]>
+        </sql>
+        <rollback>
+            DROP TABLE kpfu_sms_filter_data.sms_tag;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="04" author="Arthur Gazizov">
+        <comment>Creating data set name index</comment>
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE INDEX sms_tag_name_idx ON kpfu_sms_filter_data.sms_tag (sms_tag_name);
+            CREATE INDEX sms_tag_code_idx ON kpfu_sms_filter_data.sms_tag (sms_tag_code);
+            ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>

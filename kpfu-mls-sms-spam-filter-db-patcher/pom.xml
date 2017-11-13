@@ -40,7 +40,7 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <configuration>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                    <changeLogFile>src/main/resources/dcu/changelog.xml</changeLogFile>
+                    <changeLogFile>src/main/resources/sms-spam-filter/changelog.xml</changeLogFile>
                     <driver>org.postgresql.Driver</driver>
                     <url>${postgresql.url}</url>
                     <username>${postgresql.username}</username>

@@ -65,7 +65,7 @@
     </changeSet>
 
     <changeSet id="04" author="Arthur Gazizov">
-        <comment>CA-9: Creating data set name index</comment>
+        <comment>Creating data set name index</comment>
         <sql splitStatements="false">
             <![CDATA[
             CREATE INDEX data_set_name_idx ON kpfu_sms_filter_data.data_set (data_set_name);

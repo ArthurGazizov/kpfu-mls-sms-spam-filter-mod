@@ -12,4 +12,18 @@
 
     <artifactId>kpfu-mls-sms-spam-filter-validator</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.kpfu.tools.arthur.gazizov.machine.learning</groupId>
+            <artifactId>kpfu-mls-sms-spam-filter-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+    </dependencies>
 </project>

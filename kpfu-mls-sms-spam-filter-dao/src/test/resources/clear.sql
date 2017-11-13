@@ -1,0 +1,2 @@
+DELETE FROM kpfu_sms_filter_data.data_set_element;
+DELETE FROM kpfu_sms_filter_data.data_set;
