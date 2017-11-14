@@ -9,6 +9,7 @@ public class Probability {
   private String word;
   private Long dataSetId;
   private Long smsTagId;
+  private Boolean knownWord;
 
   public Double getValue() {
     return value;
@@ -42,11 +43,21 @@ public class Probability {
     this.smsTagId = smsTagId;
   }
 
+  public Boolean getKnownWord() {
+    return knownWord;
+  }
+
+  public void setKnownWord(Boolean knownWord) {
+    this.knownWord = knownWord;
+  }
+
   public static final class Builder {
     private Double value;
     private String word;
     private Long dataSetId;
     private Long smsTagId;
+    private Boolean knownWord;
+
 
     private Builder() {
     }
@@ -75,12 +86,19 @@ public class Probability {
       return this;
     }
 
+    public Builder knownWord(Boolean knownWord){
+      this.knownWord = knownWord;
+      return this;
+    }
+
+
     public Probability build() {
       Probability probability = new Probability();
       probability.setValue(value);
       probability.setWord(word);
       probability.setDataSetId(dataSetId);
       probability.setSmsTagId(smsTagId);
+      probability.setKnownWord(knownWord);
       return probability;
     }
   }
