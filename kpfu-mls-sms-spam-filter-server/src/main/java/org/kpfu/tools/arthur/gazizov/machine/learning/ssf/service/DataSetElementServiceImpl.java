@@ -3,6 +3,7 @@ package org.kpfu.tools.arthur.gazizov.machine.learning.ssf.service;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dal.DataSetElementDao;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.exception.KpfuMlsSsfError;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.DataSetElementModel;
+import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.support.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +70,10 @@ public class DataSetElementServiceImpl implements DataSetElementService {
   public List<DataSetElementModel> findAll() {
     return StreamSupport.stream(dataSetElementDao.findAll().spliterator(), false)
             .collect(Collectors.toList());
+  }
+
+  @Override
+  public Page<DataSetElementModel> page(Long dataSetId, Integer offset, Integer limit) {
+    return dataSetElementDao.page(dataSetId, offset, limit);
   }
 }

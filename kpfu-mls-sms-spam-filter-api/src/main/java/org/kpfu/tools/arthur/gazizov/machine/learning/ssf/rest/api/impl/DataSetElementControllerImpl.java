@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dto.DataSetElementDto;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dto.ErrorDto;
+import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dto.PageResponse;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.processor.base.CRUDProcessor;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.processor.interfaces.DataSetElementProcessor;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.rest.api.interfaces.DataSetElementController;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -125,7 +127,7 @@ public class DataSetElementControllerImpl implements DataSetElementController {
 
   @ApiOperation(value = "Get all Datasets elements", notes = "", response = List.class)
   @ApiResponses(value = {
-          @ApiResponse(code = 201, message = "", response = List.class),
+          @ApiResponse(code = 200, message = "", response = List.class),
           @ApiResponse(code = 400, message = "Bad request", response = ErrorDto.class),
           @ApiResponse(code = 401, message = "Unauthorized", response = ErrorDto.class),
           @ApiResponse(code = 403, message = "Access Denied/Forbidden", response = ErrorDto.class),
@@ -143,5 +145,27 @@ public class DataSetElementControllerImpl implements DataSetElementController {
   @Override
   public CRUDProcessor<DataSetElementDto> processor() {
     return dataSetElementProcessor;
+  }
+
+  @ApiOperation(value = "Get page Datasets elements", notes = "", response = PageResponse.class)
+  @ApiResponses(value = {
+          @ApiResponse(code = 200, message = "", response = PageResponse.class),
+          @ApiResponse(code = 400, message = "Bad request", response = ErrorDto.class),
+          @ApiResponse(code = 401, message = "Unauthorized", response = ErrorDto.class),
+          @ApiResponse(code = 403, message = "Access Denied/Forbidden", response = ErrorDto.class),
+          @ApiResponse(code = 500, message = "Something exceptional happened", response = ErrorDto.class)
+  })
+  @RequestMapping(
+          value = "/element/{id}/page",
+          produces = {"application/json"},
+          method = RequestMethod.GET)
+  @Override
+  public ResponseEntity<PageResponse<DataSetElementDto>> page(@ApiParam(value = "id", required = true)
+                                                              @PathVariable("id") Long dataSetId,
+                                                              @ApiParam(value = "offset", required = false)
+                                                              @RequestParam("offset") Integer offset,
+                                                              @ApiParam(value = "limit", required = false)
+                                                              @RequestParam("limit") Integer limit) {
+    return dataSetElementProcessor.page(dataSetId, offset, limit);
   }
 }

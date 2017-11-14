@@ -1,6 +1,7 @@
 package org.kpfu.tools.arthur.gazizov.machine.learning.ssf.processor;
 
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dto.DataSetElementDto;
+import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dto.PageResponse;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.processor.interfaces.DataSetElementProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,5 +56,10 @@ public class DataSetElementProcessorImpl implements DataSetElementProcessor {
   @Override
   public ResponseEntity<List<DataSetElementDto>> findAll() {
     return dataSetElementProcessor.findAll();
+  }
+
+  @Override
+  public ResponseEntity<PageResponse<DataSetElementDto>> page(Long dataSetId, Integer offset, Integer limit) {
+    return dataSetElementProcessor.page(dataSetId, offset, limit);
   }
 }
