@@ -4,7 +4,6 @@ import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.config.KpfuMlsSsfServe
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.exception.KpfuMlsSsfError;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.exception.KpfuMlsSsfException;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.Probability;
-import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.TagsStat;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.WordTagCounter;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.WordsStat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,10 @@ import java.util.Optional;
 
 /**
  * @author Arthur Gazizov (Cinarra Systems)
- * Created on 13.11.17.
+ * Created on 14.11.17.
  */
-@Service
-public class SsfEngineServiceImpl implements SsfEngineService {
+@Service("ssfEngineServiceFisherImpl")
+public class SsfEngineServiceFisherImpl implements SsfEngineService {
   @Autowired
   private DictionaryService dictionaryService;
 
@@ -26,9 +25,6 @@ public class SsfEngineServiceImpl implements SsfEngineService {
 
   @Override
   public Probability probability(Long dataSetId, String word, Long smsTagId) {
-    final TagsStat tagsStat = Optional.of(dataSetId)
-            .map(dictionaryService::getTagStat)
-            .orElseThrow(KpfuMlsSsfError.STAT_NOT_FOUND::exception);
     final WordsStat wordsStat = Optional.of(dataSetId)
             .map(dictionaryService::getWordStat)
             .orElseThrow(KpfuMlsSsfError.STAT_NOT_FOUND::exception);
@@ -42,18 +38,16 @@ public class SsfEngineServiceImpl implements SsfEngineService {
               .map(wordTagCounter::get)
               .orElseThrow(KpfuMlsSsfError.UNRECOGNIZED_SMS_TAG::exception);
 
-      final Integer wordsCountAssotatedWithTag = Optional.of(smsTagId)
-              .map(tagsStat::get)
-              .orElseThrow(KpfuMlsSsfError.UNRECOGNIZED_SMS_TAG::exception);
+      final int total = wordTagCounter.values().stream().mapToInt(i -> i).sum();
 
       return Probability.Builder.aProbability()
               .dataSetId(dataSetId)
               .smsTagId(smsTagId)
               .word(word)
               .knownWord(true)
-              .value(wordImpressionsCountInTag == 0
+              .value(total == 0
                       ? 0
-                      : ((1.0 * wordImpressionsCountInTag) / wordsCountAssotatedWithTag))
+                      : ((1.0 * wordImpressionsCountInTag) / total))
               .build();
     } catch (KpfuMlsSsfException ex) {
       return Probability.Builder.aProbability()
@@ -68,9 +62,6 @@ public class SsfEngineServiceImpl implements SsfEngineService {
 
   @Override
   public Probability weightProbability(Long dataSetId, String word, Long smsTagId) {
-    final TagsStat tagsStat = Optional.of(dataSetId)
-            .map(dictionaryService::getTagStat)
-            .orElseThrow(KpfuMlsSsfError.STAT_NOT_FOUND::exception);
     final WordsStat wordsStat = Optional.of(dataSetId)
             .map(dictionaryService::getWordStat)
             .orElseThrow(KpfuMlsSsfError.STAT_NOT_FOUND::exception);
@@ -83,11 +74,6 @@ public class SsfEngineServiceImpl implements SsfEngineService {
       final Integer wordImpressionsCountInTag = Optional.of(smsTagId)
               .map(wordTagCounter::get)
               .orElseThrow(KpfuMlsSsfError.UNRECOGNIZED_SMS_TAG::exception);
-
-      final Integer wordsCountAssotatedWithTag = Optional.of(smsTagId)
-              .map(tagsStat::get)
-              .orElseThrow(KpfuMlsSsfError.UNRECOGNIZED_SMS_TAG::exception);
-
 
       final Double weight = config.getWeight();
       final Double aprioriProbability = config.getAprioriProbability();

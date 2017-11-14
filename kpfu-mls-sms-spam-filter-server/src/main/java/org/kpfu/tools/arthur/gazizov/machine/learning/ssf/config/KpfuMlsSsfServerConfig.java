@@ -3,7 +3,7 @@ package org.kpfu.tools.arthur.gazizov.machine.learning.ssf.config;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.converter.config.ConverterConfig;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.dal.config.DaoConfig;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.util.SmsAnalyser;
-import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.util.SmsAnalyserImpl;
+import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.util.SmsAnalyserRegexImpl;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.util.ValidationReportChecker;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.util.ValidationReportCheckerImpl;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.validator.config.ValidationConfig;
@@ -43,6 +43,6 @@ public class KpfuMlsSsfServerConfig {
 
   @Bean
   public SmsAnalyser smsAnalyser() {
-    return new SmsAnalyserImpl();
+    return new SmsAnalyserRegexImpl();
   }
 }

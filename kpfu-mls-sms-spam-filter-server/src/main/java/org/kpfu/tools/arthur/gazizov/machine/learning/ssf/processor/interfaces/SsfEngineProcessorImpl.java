@@ -4,6 +4,7 @@ import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.exception.KpfuMlsSsfEr
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.Probability;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.service.SsfEngineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Service
 public class SsfEngineProcessorImpl implements SsfEngineProcessor {
   @Autowired
+  @Qualifier("ssfEngineServiceBayesImpl")
   private SsfEngineService ssfEngineService;
 
   @Override

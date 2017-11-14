@@ -6,6 +6,7 @@ import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.Classificat
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.model.bean.Probability;
 import org.kpfu.tools.arthur.gazizov.machine.learning.ssf.util.SmsAnalyser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -25,6 +26,7 @@ public class ClassificationServiceBayesImpl implements ClassificationService {
   private SmsTagService smsTagService;
 
   @Autowired
+  @Qualifier("ssfEngineServiceBayesImpl")
   private SsfEngineService ssfEngineService;
 
 
